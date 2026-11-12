@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1130" role="img" aria-label="示例装配页：装木榫">
+  <rect width="800" height="1130" fill="#ffffff"/>
+  <g fill="none" stroke="#1c1a17" stroke-width="4" stroke-linejoin="round">
+    <rect x="70" y="150" width="470" height="120" rx="4"/>
+    <rect x="70" y="330" width="470" height="120" rx="4"/>
+    <rect x="70" y="510" width="470" height="120" rx="4"/>
+    <rect x="70" y="690" width="470" height="56" rx="4"/>
+    <circle cx="150" cy="170" r="7"/>
+    <circle cx="430" cy="170" r="7"/>
+    <circle cx="150" cy="350" r="7"/>
+    <circle cx="430" cy="350" r="7"/>
+    <circle cx="150" cy="530" r="7"/>
+    <circle cx="430" cy="530" r="7"/>
+    <circle cx="150" cy="706" r="7"/>
+    <circle cx="430" cy="706" r="7"/>
+    <circle cx="620" cy="290" r="110"/>
+    <rect x="560" y="278" width="120" height="24" rx="12"/>
+    <path d="M470 180 C540 200 560 250 575 265"/>
+  </g>
+  <g fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="54">
+    <text x="70" y="100">1</text>
+    <text x="620" y="560" font-size="34">×16</text>
+  </g>
+  <g fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-size="26">
+    <text x="70" y="900">把木榫敲进 4 块横板的边孔，每块 4 根。</text>
+    <text x="70" y="945">敲到底，不要外露。</text>
+  </g>
+  <g transform="rotate(-28 400 1010)" opacity="0.16">
+    <text x="250" y="1020" fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-size="34">示例页面 placeholder</text>
+  </g>
+</svg>

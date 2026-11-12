@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1130" role="img" aria-label="示例装配页：装偏心螺丝">
+  <rect width="800" height="1130" fill="#ffffff"/>
+  <g fill="none" stroke="#1c1a17" stroke-width="4" stroke-linejoin="round">
+    <rect x="120" y="170" width="120" height="560" rx="4"/>
+    <rect x="380" y="170" width="120" height="560" rx="4"/>
+    <circle cx="180" cy="250" r="9"/>
+    <circle cx="180" cy="380" r="9"/>
+    <circle cx="180" cy="510" r="9"/>
+    <circle cx="180" cy="640" r="9"/>
+    <circle cx="440" cy="250" r="9"/>
+    <circle cx="440" cy="380" r="9"/>
+    <circle cx="440" cy="510" r="9"/>
+    <circle cx="440" cy="640" r="9"/>
+    <circle cx="620" cy="300" r="100"/>
+    <rect x="590" y="290" width="12" height="60" rx="4"/>
+    <path d="M500 300 C540 300 560 300 600 300"/>
+  </g>
+  <g fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="54">
+    <text x="70" y="110">2</text>
+    <text x="560" y="470" font-size="34">×12</text>
+  </g>
+  <g fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-size="26">
+    <text x="70" y="830">把偏心螺丝拧进两块侧板内侧的孔位。</text>
+    <text x="70" y="875">每块 6 颗，螺杆朝板内。</text>
+  </g>
+  <g transform="rotate(-28 400 1010)" opacity="0.16">
+    <text x="250" y="1020" fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-size="34">示例页面 placeholder</text>
+  </g>
+</svg>

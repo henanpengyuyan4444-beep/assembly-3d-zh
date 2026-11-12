@@ -1,0 +1,23 @@
+Bygga is an independent, unofficial project. It is not affiliated with,
+sponsored or endorsed by Inter IKEA Systems B.V. or any IKEA company.
+
+The MIT license in LICENSE covers Bygga's own code, drawings and voice clips.
+It grants no rights in anyone else's trademarks: IKEA, the IKEA logo and IKEA
+product names (KALLAX, BILLY, MALM and the rest) are trademarks of Inter IKEA
+Systems B.V., used here only to say which product a guide is for.
+
+IKEA's product listings are not part of this repository. scripts/ikea/fetch.ts
+downloads them for local use, and only the catalog rows derived from them
+(names, product types and sizes in src/data) ship with the app.
+
+Assembly guides are generated drawings, not IKEA's instructions. Always check
+them against the official manual that comes with the product.
+
+This repository is a fork of Bygga (https://github.com/Nutlope/bygga), used under
+the MIT license. The original copyright notice is kept in LICENSE. Upstream code
+is Bygga contributors; the changes here are the Chinese manual prompts, the
+original manual page panel, Chinese site metadata and this documentation.
+
+本仓库是 Bygga 的 fork（MIT）。上游版权声明保留在 LICENSE 里。本仓库新增的是
+中文手册提示词、原说明书页对照面板、中文站点信息与文档。IKEA 的名称与产品名
+仍是 Inter IKEA Systems B.V. 的商标，本仓库只用于说明某个指南对应哪款产品。
