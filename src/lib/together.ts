@@ -1,16 +1,20 @@
 import "server-only";
 
-const BASE = "https://api.together.xyz/v1";
+// 供应商切换：默认 Together。设 LLM_PROVIDER=deepseek 就用 DeepSeek 的 OpenAI 兼容端点,
+// 此时服务端 key 读 DEEPSEEK_API_KEY, 模型默认 deepseek-flash (支持图片输入)。
+export const PROVIDER = (process.env.LLM_PROVIDER ?? "together").trim().toLowerCase();
+const DS = PROVIDER === "deepseek";
+const BASE = process.env.LLM_BASE_URL?.trim() || (DS ? "https://api.deepseek.com" : "https://api.together.xyz/v1");
 
 export const MODELS = {
   // laying out a scanned manual: the strongest reasoning we can afford per scan
-  plan: list(process.env.TOGETHER_PLAN_MODEL, "openai/gpt-oss-120b,zai-org/GLM-5.3-Flash,Qwen/Qwen3.7-Plus"),
+  plan: list(process.env.SCAN_PLAN_MODEL ?? process.env.TOGETHER_PLAN_MODEL, DS ? "deepseek-flash" : "openai/gpt-oss-120b,zai-org/GLM-5.3-Flash,Qwen/Qwen3.7-Plus"),
   // product lookups and the "Stuck?" chat: cheap and quick
-  text: list(process.env.TOGETHER_TEXT_MODEL, "openai/gpt-oss-120b,zai-org/GLM-5.3-Flash,Qwen/Qwen3.8-Flash"),
+  text: list(process.env.SCAN_TEXT_MODEL ?? process.env.TOGETHER_TEXT_MODEL, DS ? "deepseek-flash" : "openai/gpt-oss-120b,zai-org/GLM-5.3-Flash,Qwen/Qwen3.8-Flash"),
   // box labels and loose parts
-  vision: list(process.env.TOGETHER_VISION_MODEL, "nvidia/NVIDIA-Nemotron-3.5-Super-VL,MiniMaxAI/MiniMax-M3,Qwen/Qwen3.5-9B"),
+  vision: list(process.env.SCAN_VISION_MODEL ?? process.env.TOGETHER_VISION_MODEL, DS ? "deepseek-flash" : "nvidia/NVIDIA-Nemotron-3.5-Super-VL,MiniMaxAI/MiniMax-M3,Qwen/Qwen3.5-9B"),
   // reading manual pages, where small print matters most
-  read: list(process.env.TOGETHER_READ_MODEL, "MiniMaxAI/MiniMax-M3,nvidia/NVIDIA-Nemotron-3.5-Super-VL,Qwen/Qwen3.5-9B"),
+  read: list(process.env.SCAN_READ_MODEL ?? process.env.TOGETHER_READ_MODEL, DS ? "deepseek-flash" : "MiniMaxAI/MiniMax-M3,nvidia/NVIDIA-Nemotron-3.5-Super-VL,Qwen/Qwen3.5-9B"),
 };
 
 function list(env: string | undefined, fallback: string) {
@@ -138,10 +142,17 @@ export function isDevKey(req: Request) {
 }
 
 /** The key the person pasted into the app, sent along with each request. Never stored or logged, and the only key any AI call runs on. */
+/** 服务端自己的 key: 部署方配一次, 访客不用带 key。 */
+export function serverKey() {
+  return (DS ? process.env.DEEPSEEK_API_KEY : process.env.TOGETHER_API_KEY)?.trim() || process.env.TOGETHER_API_KEY?.trim() || undefined;
+}
+
 export function userKey(req: Request) {
-  if (isDevKey(req)) return process.env.TOGETHER_API_KEY?.trim() || undefined;
+  if (isDevKey(req)) return serverKey();
   const k = req.headers.get("x-together-key")?.trim() ?? "";
-  return k.length >= 20 && k.length <= 200 && /^[\w.-]+$/.test(k) ? k : undefined;
+  if (k.length >= 20 && k.length <= 200 && /^[\w.-]+$/.test(k)) return k;
+  // 没有访客 key 时退回服务端 key (自建部署的默认用法)
+  return serverKey();
 }
 
 /** What a turned-away call tells the person: their key was refused, or their account is out of credit. */

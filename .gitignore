@@ -25,3 +25,6 @@ yarn-error.log*
 
 # our own: customer manual pages are not committed unless explicitly added
 public/manual-pages/*/private/
+# 本地密钥, 不入库
+.secrets/
+out/
