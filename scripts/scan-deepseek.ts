@@ -30,26 +30,36 @@ function mimeOf(file: string) {
   return "image/jpeg";
 }
 
-async function chat(key: string, messages: unknown[], maxTokens: number, json: boolean) {
-  for (const withJson of json ? [true, false] : [false]) {
-    const res = await fetch(`${BASE}/chat/completions`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: MODEL,
-        messages,
-        max_tokens: maxTokens,
-        temperature: 0,
-        ...(withJson ? { response_format: { type: "json_object" } } : {}),
-      }),
-    });
-    const text = await res.text();
-    if (res.ok) {
-      const j = JSON.parse(text);
-      return String(j?.choices?.[0]?.message?.content ?? "");
+type Think = { thinking: "enabled" | "disabled"; effort?: "low" | "high" | "max" };
+
+async function chat(key: string, messages: unknown[], maxTokens: number, json: boolean, think: Think) {
+  // 思考开着的模型会把额度先花在思维链上: 输出为空就翻倍重试一次
+  for (let budget = maxTokens, tries = 0; tries < 2; tries++, budget = Math.min(budget * 2, 32000)) {
+    for (const withJson of json ? [true, false] : [false]) {
+      const res = await fetch(`${BASE}/chat/completions`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: MODEL,
+          messages,
+          max_tokens: budget,
+          thinking: { type: think.thinking },
+          ...(think.effort ? { reasoning_effort: think.effort } : {}),
+          ...(withJson ? { response_format: { type: "json_object" } } : {}),
+        }),
+      });
+      const text = await res.text();
+      if (res.ok) {
+        const j = JSON.parse(text);
+        const choice = j?.choices?.[0];
+        const content = String(choice?.message?.content ?? "");
+        if (content.trim()) return content;
+        if (choice?.finish_reason === "length") break;
+        throw new Error("模型没有输出内容");
+      }
+      if (res.status === 400 && withJson) continue;
+      throw new Error(`HTTP ${res.status}: ${text.slice(0, 300)}`);
     }
-    if (res.status === 400 && withJson) continue;
-    throw new Error(`HTTP ${res.status}: ${text.slice(0, 300)}`);
   }
   throw new Error("没有可用模型");
 }
@@ -87,8 +97,9 @@ async function main() {
           ],
         },
       ],
-      2000,
+      4000,
       true,
+      { thinking: "enabled", effort: "high" },
     );
     const note = extractJson(text) ?? { kind: "other" };
     notes.push(note);
@@ -107,8 +118,9 @@ async function main() {
       { role: "system", content: PLAN_PROMPT_ZH },
       { role: "user", content: input },
     ],
-    8000,
+    16000,
     true,
+    { thinking: "enabled", effort: "high" },
   );
   const spec = extractJson(planText);
   if (!spec) throw new Error("规划阶段没给出 JSON: " + planText.slice(0, 300));
