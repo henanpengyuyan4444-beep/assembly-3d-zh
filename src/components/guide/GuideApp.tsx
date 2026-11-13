@@ -156,7 +156,7 @@ export default function GuideApp({ slug, query, step, kind }: { slug: string; qu
       <Shell title="Scanned guide">
         <div className="notfound">
           <Figure pose="think" bubble="?" size={120} />
-          <h1>This guide lives on another device</h1>
+          <h1>这份指南存在另一台设备上</h1>
           <p className="sub">Scanned guides are saved in the browser that made them. Ask for a share link from the done screen{SCAN_ENABLED ? ", or scan the manual again" : ""}.</p>
           <Link href={SCAN_ENABLED ? "/scan" : "/"} className="btn primary">
             {SCAN_ENABLED ? "Scan a manual" : "Back to search"}
@@ -194,9 +194,9 @@ export default function GuideApp({ slug, query, step, kind }: { slug: string; qu
       ? !ai
         ? { text: `Add your Together AI key for ${plan.spec.name}'s own steps`, act: () => setAskKey("") }
         : trouble === "key"
-          ? { text: `Together turned your key away. Fix it for ${plan.spec.name}'s own steps`, act: () => setAskKey("key") }
+          ? { text: `Together 不认这个 key。 Fix it for ${plan.spec.name}'s own steps`, act: () => setAskKey("key") }
           : trouble === "credits"
-            ? { text: "Your Together credit ran out. Top it up, then tap here to try again", act: again }
+            ? { text: "Together 的额度用完了。 Top it up, then tap here to try again", act: again }
             : { text: `Try again for ${plan.spec.name}'s own steps`, act: again }
       : undefined;
   return (
@@ -211,7 +211,7 @@ function Shell({ title, children }: { title: string; children: React.ReactNode }
   return (
     <div className="guide shell">
       <header className="topbar">
-        <Link href="/" className="home-btn" aria-label="Bygga home">
+        <Link href="/" className="home-btn" aria-label="返回首页">
           <LogoMark size={34} />
         </Link>
         <div className="tb-title">
@@ -251,8 +251,8 @@ function NotFound({
     return (
       <div className="notfound">
         <Figure pose="think" bubble="?" size={120} />
-        <h1>Something went wrong</h1>
-        <p className="sub">Check your connection and try again.</p>
+        <h1>出了点问题</h1>
+        <p className="sub">检查一下网络, 再试一次。</p>
         <Link href="/" className="btn primary">
           Back to search
         </Link>
@@ -323,7 +323,7 @@ function NotFound({
       </div>
       {suggestions.length > 0 && (
         <div className="chips center">
-          <span className="muted">Or did you mean</span>
+          <span className="muted">你是不是想找</span>
           {suggestions.map((s) => (
             <Link key={s} className="chip" href={`/build/${encodeURIComponent(s.toLowerCase().replace(/\s+/g, "-"))}?q=${encodeURIComponent(s)}`}>
               {s}
@@ -335,7 +335,7 @@ function NotFound({
         <Link href="/scan" className="scan-link nf-scan">
           <IScan size={17} />
           <span>
-            Not from IKEA? <u>Scan its paper manual</u>
+            Not from IKEA? <u>扫描它的纸质说明书</u>
           </span>
         </Link>
       )}
@@ -485,8 +485,8 @@ function Guide({ plan, slug, via, ai, startStep, onOwnSteps }: { plan: Plan; slu
         playStep();
         const n = step + 1;
         const half = Math.floor(steps.length / 2);
-        if (steps.length >= 6 && n === half) showToast("Halfway there. Nice work.");
-        else if (n === steps.length - 1 && steps.length >= 4) showToast("Last step coming up.");
+        if (steps.length >= 6 && n === half) showToast("装到一半了, 挺顺。");
+        else if (n === steps.length - 1 && steps.length >= 4) showToast("还剩最后一步。");
         go("steps", n);
       } else {
         playDone();
@@ -756,7 +756,7 @@ function Guide({ plan, slug, via, ai, startStep, onOwnSteps }: { plan: Plan; slu
     const s = plan.spec;
     // the cover keeps the page's own title; steps and the end say where you are
     document.title =
-      phase === "steps" ? `Step ${step + 1} of ${steps.length}, ${s.name} | 装配图 3D` : phase === "done" ? `Built: ${s.name} | 装配图 3D` : `${s.name} ${s.variant.toLowerCase()}: assembly step by step | 装配图 3D`;
+      phase === "steps" ? `第 ${step + 1} 步, 共 ${steps.length} 步 · ${s.name} | 装配图 3D` : phase === "done" ? `已装好: ${s.name} | 装配图 3D` : `${s.name} ${s.variant}: 分步装配指南 | 装配图 3D`;
   }, [phase, step, steps.length, plan.spec]);
 
   const mode: StageMode = useMemo(() => {
@@ -788,7 +788,7 @@ function Guide({ plan, slug, via, ai, startStep, onOwnSteps }: { plan: Plan; slu
         <Stepper phase={phase} step={step} total={steps.length} reached={reached} onJump={jump} />
         <div className="tb-actions">
           {phase === "steps" && (
-            <button className="icon-btn" onClick={() => setOverview(true)} aria-label="All steps" data-tip="All steps">
+            <button className="icon-btn" onClick={() => setOverview(true)} aria-label="全部步骤" data-tip="全部步骤">
               <IGrid />
             </button>
           )}
@@ -807,18 +807,18 @@ function Guide({ plan, slug, via, ai, startStep, onOwnSteps }: { plan: Plan; slu
           {phase === "steps" && (
             <button className={"voice-btn" + (voiceOn ? " on" : "")} onClick={() => (voiceOn ? stopVoice() : turnOnVoice())} aria-pressed={voiceOn} aria-label={voiceOn ? "Turn voice off" : "Turn voice on"} data-tip="Voice (V)">
               <IMic size={18} />
-              <span>{voiceOn ? "Voice on" : "Voice"}</span>
+              <span>{voiceOn ? "语音已开" : "语音"}</span>
             </button>
           )}
           <Feedback ctx={{ slug: plan.spec.slug ?? slug, name: plan.spec.name, variant: plan.spec.variant, phase, step: phase === "steps" ? step + 1 : undefined }} />
-          <button className="icon-btn" onClick={() => setHelp({})} aria-label="Help" data-tip="Help">
+          <button className="icon-btn" onClick={() => setHelp({})} aria-label="帮助" data-tip="帮助">
             <IHelp />
           </button>
         </div>
       </header>
 
       <main className="guide-main">
-        <section className="sheet" aria-label="Assembly drawing">
+        <section className="sheet" aria-label="装配图">
           <StageView
             plan={plan}
             mode={mode}
@@ -896,7 +896,7 @@ function Guide({ plan, slug, via, ai, startStep, onOwnSteps }: { plan: Plan; slu
                 {paused ? <IPlay /> : <IPause />}
               </button>
               <button className={"pill-btn float" + (slow ? " on" : "")} onClick={() => setSlow(!slow)} aria-pressed={slow}>
-                Slow
+                慢放
               </button>
               <AnimatePresence>
                 {moved && (
@@ -907,8 +907,8 @@ function Guide({ plan, slug, via, ai, startStep, onOwnSteps }: { plan: Plan; slu
               </AnimatePresence>
             </div>
           )}
-          {phase === "steps" && step === 0 && !moved && <span className="drag-hint">Drag to turn it around</span>}
-          {phase === "parts" && <span className="sheet-caption">Lay your panels out like this</span>}
+          {phase === "steps" && step === 0 && !moved && <span className="drag-hint">拖动可以转一圈看</span>}
+          {phase === "parts" && <span className="sheet-caption">把板件这样摆开</span>}
           {voiceOn && phase === "steps" && (
             <div className="listening" role="status">
               <span className={"eq" + (speaking ? " on" : "")} aria-hidden="true">
@@ -1039,7 +1039,7 @@ function Guide({ plan, slug, via, ai, startStep, onOwnSteps }: { plan: Plan; slu
 
       {phase === "done" && <Confetti />}
       <p className="sr-only" aria-live="polite">
-        {phase === "steps" ? `Step ${step + 1} of ${steps.length}. ${cur?.title ?? ""}. ${cur?.detail ?? ""}` : phase === "done" ? `You built ${plan.spec.name}.` : ""}
+        {phase === "steps" ? `第 ${step + 1} 步, 共 ${steps.length} 步。${cur?.title ?? ""}。${cur?.detail ?? ""}` : phase === "done" ? `You built ${plan.spec.name}.` : ""}
       </p>
 
       <AnimatePresence>
@@ -1138,10 +1138,10 @@ function toggle(s: Set<string>, id: string) {
 /** Where you are: Tools, Parts, Build, Done. Earlier phases can be revisited. */
 function Stepper({ phase, step, total, reached, onJump }: { phase: Phase; step: number; total: number; reached: number; onJump: (p: Phase) => void }) {
   const items: { id: Phase; label: string }[] = [
-    { id: "tools", label: "Tools" },
-    { id: "parts", label: "Parts" },
-    { id: "steps", label: "Build" },
-    { id: "done", label: "Done" },
+    { id: "tools", label: "工具" },
+    { id: "parts", label: "零件" },
+    { id: "steps", label: "装配" },
+    { id: "done", label: "完成" },
   ];
   const cur = PHASES.indexOf(phase);
   return (

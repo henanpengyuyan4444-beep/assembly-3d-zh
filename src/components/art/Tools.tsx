@@ -113,14 +113,14 @@ const ART: Record<ToolId, React.ReactNode> = {
 };
 
 export const TOOL_INFO: Record<ToolId, { name: string; hint: string; alt?: string; short?: string }> = {
-  allen: { name: "Allen key", hint: "The small L-shaped key", alt: "It comes in the box, usually in the bag with the screws.", short: "It's in the box, with the screws." },
-  screwdriver: { name: "Phillips screwdriver", hint: "Cross-shaped tip", alt: "A drill on its lowest setting works. Do the last turn by hand so the screw doesn't strip.", short: "A drill on low. Finish by hand." },
-  flathead: { name: "Flat screwdriver", hint: "Straight tip", alt: "A coin works for turning the round metal locks.", short: "A coin turns the round locks." },
-  hammer: { name: "Hammer", hint: "For dowels and nails", alt: "Wooden dowels go in with a firm push or a rubber mallet. Nails for the back panel need a hammer.", short: "A firm push, or a rubber mallet." },
-  drill: { name: "Drill", hint: "Only to fix it to the wall", alt: "Borrow one from a neighbour. You only need it to screw this to the wall so it can't tip over.", short: "Borrow one. It's only for fixing this to the wall." },
-  level: { name: "Spirit level", hint: "Handy, not essential", alt: "A level app on your phone works just as well.", short: "A level app on your phone works." },
-  tape: { name: "Tape measure", hint: "To check the corners are straight", alt: "A piece of string works. Measure corner to corner both ways: if they match, it's straight.", short: "String works: corner to corner, both ways." },
-  pencil: { name: "Pencil", hint: "For marking the wall", alt: "Any pen will do.", short: "Any pen will do." },
-  wrench: { name: "Spanner", hint: "Comes in the box", alt: "Adjustable pliers work too.", short: "Adjustable pliers work too." },
-  knife: { name: "Box cutter", hint: "To open the box", alt: "Scissors work. Only cut through the tape, so the panels don't get scratched.", short: "Scissors work. Cut the tape only." },
+  allen: { name: "内六角扳手", hint: "L 形的小扳手", alt: "一般随箱附带, 和螺丝装在同一个袋子里。", short: "箱子里有, 就在螺丝袋里。" },
+  screwdriver: { name: "十字螺丝刀", hint: "十字头", alt: "电钻用最低档也行, 最后一圈用手拧, 免得把螺丝拧花。", short: "电钻低档, 最后手拧。" },
+  flathead: { name: "一字螺丝刀", hint: "一字头", alt: "用硬币就能转那种圆形锁扣。", short: "硬币就能转圆锁扣。" },
+  hammer: { name: "锤子", hint: "敲木榫和钉子", alt: "木榫用手压紧就行, 橡胶锤也可以。背板的钉子得用真锤子。", short: "手压紧, 或橡胶锤。" },
+  drill: { name: "电钻", hint: "只在固定到墙上时用", alt: "跟邻居借一把。只在把柜子固定到墙上、防止倾倒时用得到。", short: "借一把, 只用来上墙。" },
+  level: { name: "水平尺", hint: "有更好, 不是必需", alt: "手机上的水平仪一样能用。", short: "手机水平仪就行。" },
+  tape: { name: "卷尺", hint: "量对角线看方不方", alt: "一根绳子也行。两个方向各量一次对角线, 相等就是方的。", short: "绳子也行: 两个方向量对角线。" },
+  pencil: { name: "铅笔", hint: "在墙上做记号", alt: "什么笔都行。", short: "什么笔都行。" },
+  wrench: { name: "扳手", hint: "随箱附带", alt: "活动钳子也能用。", short: "活动钳子也行。" },
+  knife: { name: "开箱刀", hint: "拆包装用", alt: "剪刀也行。只割胶带, 别划到板面。", short: "剪刀也行, 只割胶带。" },
 };

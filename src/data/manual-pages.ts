@@ -23,11 +23,31 @@ export type ManualPageRef = { page: number; src: string };
 export type ManualEntry = {
   brand: string;
   name: string;
+  /** 页面是自己画的示意图, 界面上会标注"示例" */
+  placeholder?: boolean;
   /** 与 plan.steps 一一对应 */
   stepPages: (ManualPageRef | null)[];
 };
 
-export const manualPages: Record<string, ManualEntry> = {};
+export const manualPages: Record<string, ManualEntry> = {
+  "demo-bookcase": {
+    brand: "示例家具",
+    name: "示例书柜",
+    placeholder: true,
+    // 与 src/data/demo-custom.ts 的 9 个步骤一一对应
+    stepPages: [
+      { page: 6, src: "/manual-pages/demo/p06.svg" },
+      { page: 7, src: "/manual-pages/demo/p07.svg" },
+      { page: 7, src: "/manual-pages/demo/p07.svg" },
+      { page: 8, src: "/manual-pages/demo/p08.svg" },
+      { page: 8, src: "/manual-pages/demo/p08.svg" },
+      { page: 8, src: "/manual-pages/demo/p08.svg" },
+      { page: 8, src: "/manual-pages/demo/p08.svg" },
+      { page: 9, src: "/manual-pages/demo/p09.svg" },
+      { page: 10, src: "/manual-pages/demo/p10.svg" },
+    ],
+  },
+};
 
 /**
  * 演示用占位页（自己画的示意图，不是任何厂商的说明书）。

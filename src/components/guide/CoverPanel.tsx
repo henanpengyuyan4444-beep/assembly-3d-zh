@@ -87,7 +87,7 @@ export default function CoverPanel({
           </div>
         </dl>
 
-        <h3 className="section-title">Before you start</h3>
+        <h3 className="section-title">动手之前</h3>
         <ul className="prep">
           <li>
             <span className="prep-ico">
@@ -120,7 +120,7 @@ export default function CoverPanel({
               <span className="prep-ico">
                 <IPeople size={18} />
               </span>
-              <span>Ask someone to help with step {t.twoAt.slice(0, 2).join(" and ")}.</span>
+              <span>第 {t.twoAt.slice(0, 2).join(", ")} 步建议两个人一起。</span>
             </li>
           )}
           {s.watchOut?.slice(0, 2).map((w) => (
@@ -193,7 +193,7 @@ export default function CoverPanel({
             <IPrint size={15} /> Print this guide
           </Link>
         </div>
-        <p className="cover-note">Not affiliated with IKEA. Check each step against the paper manual in the box.</p>
+        <p className="cover-note">与 IKEA 无关。每一步都请对照箱内的纸质说明书。</p>
       </div>
       <div className="pane-foot">
         {resumable ? (
@@ -211,7 +211,7 @@ export default function CoverPanel({
         ) : built ? (
           <>
             <button className="btn primary big" onClick={onStart} autoFocus>
-              <span>Build another one</span>
+              <span>再装一件</span>
               <IArrowRight />
             </button>
             <div className="foot-row center">
@@ -222,7 +222,7 @@ export default function CoverPanel({
           </>
         ) : (
           <button className="btn primary big" onClick={onStart} autoFocus>
-            <span>Start building</span>
+            <span>开始装配</span>
             <IArrowRight />
           </button>
         )}

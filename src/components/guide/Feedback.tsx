@@ -61,7 +61,7 @@ export default function Feedback({ ctx, onOpen }: { ctx: FeedbackContext; onOpen
     <div className="fb" ref={wrap}>
       <button ref={btn} className={"fb-btn" + (open ? " on" : "")} onClick={() => toggle(!open)} aria-expanded={open} aria-haspopup="dialog" aria-label="Give feedback">
         <IFeedback size={18} />
-        <span>Feedback</span>
+        <span>反馈</span>
       </button>
       <AnimatePresence>{open && <Card ctx={ctx} onClose={() => toggle(false)} />}</AnimatePresence>
     </div>

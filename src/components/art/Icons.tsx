@@ -213,14 +213,14 @@ export function WarnIcon({ id, size = 36 }: { id: WarnId; size?: number }) {
 }
 
 export const WARN_TEXT: Record<WarnId, string> = {
-  two: "Two people",
-  loose: "Don't tighten fully yet",
-  hand: "Tighten by hand only",
-  wall: "Fix it to the wall",
-  square: "Keep it square",
-  floor: "Protect the surface",
-  face: "Holes face inwards",
-  tip: "Tip-over risk",
+  two: "需要两个人",
+  loose: "先别拧死",
+  hand: "只用手拧",
+  wall: "固定到墙上",
+  square: "保持方正",
+  floor: "垫着操作",
+  face: "孔朝内侧",
+  tip: "有倾倒风险",
 };
 
 export function IGithub({ size = 22, className }: { size?: number; className?: string }) {

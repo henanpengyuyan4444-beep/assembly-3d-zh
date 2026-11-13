@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1130" role="img" aria-label="示例装配页：钉背板">
+  <rect width="800" height="1130" fill="#ffffff"/>
+  <g fill="none" stroke="#1c1a17" stroke-width="4" stroke-linejoin="round">
+    <path d="M180 240 L620 240 L620 800 L180 800 Z"/>
+    <path d="M180 300 L620 300 M180 740 L620 740" stroke-dasharray="12 10"/>
+    <circle cx="210" cy="300" r="6"/>
+    <circle cx="320" cy="300" r="6"/>
+    <circle cx="430" cy="300" r="6"/>
+    <circle cx="540" cy="300" r="6"/>
+    <circle cx="210" cy="740" r="6"/>
+    <circle cx="320" cy="740" r="6"/>
+    <circle cx="430" cy="740" r="6"/>
+    <circle cx="540" cy="740" r="6"/>
+    <circle cx="650" cy="430" r="70"/>
+    <path d="M650 400 L650 460" stroke-width="6"/>
+    <path d="M636 412 L650 396 L664 412" stroke-width="6"/>
+  </g>
+  <g fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="54">
+    <text x="70" y="120">4</text>
+    <text x="700" y="560" font-size="30">×18</text>
+  </g>
+  <g fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-size="26">
+    <text x="70" y="900">沿背板四边钉, 钉在板材边缘中线上。</text>
+    <text x="70" y="945">从四个角开始, 边钉边看方正。</text>
+  </g>
+  <g transform="rotate(-28 400 1010)" opacity="0.16">
+    <text x="250" y="1020" fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-size="34">示例页面 placeholder</text>
+  </g>
+</svg>

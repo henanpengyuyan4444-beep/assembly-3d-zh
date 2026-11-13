@@ -25,7 +25,7 @@ export default function ManualPage({ slug, index }: { slug: string; index: numbe
   const ref = entry?.stepPages[index] ?? null;
   if (!entry || !ref) return null;
 
-  const isDemo = !manualPages[slug];
+  const isDemo = !manualPages[slug] || entry.placeholder === true;
 
   return (
     <>

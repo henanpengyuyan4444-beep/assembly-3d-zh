@@ -4,6 +4,7 @@ import { fold } from "./fold";
 import { decodeRows, type IkeaRow } from "./ikea";
 import { IKEA_ROWS } from "@/data/ikea-rows";
 import { FIXES, SAME } from "@/data/fixes";
+import { DEMO_CUSTOM } from "@/data/demo-custom";
 
 type Entry = Omit<ProductSpec, "source" | "slug" | "variants" | "siblings"> & {
   slug: string;
@@ -22,6 +23,8 @@ type Entry = Omit<ProductSpec, "source" | "slug" | "variants" | "siblings"> & {
 
 /** Hand-checked starting points for popular flat packs. Dimensions in cm. */
 export const CATALOG: Entry[] = [
+  // 中文示例: 数据在本仓库, 用来演示中文手册的完整效果
+  { ...DEMO_CUSTOM, slug: "demo-bookcase", family: "demo", featured: true, keywords: ["示例", "demo", "书柜"], checked: true },
   {
     slug: "kallax-2x2",
     family: "kallax",

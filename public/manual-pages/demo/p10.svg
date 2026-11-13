@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1130" role="img" aria-label="示例装配页：放搁板">
+  <rect width="800" height="1130" fill="#ffffff"/>
+  <g fill="none" stroke="#1c1a17" stroke-width="4" stroke-linejoin="round">
+    <path d="M200 200 L600 200 L600 800 L200 800 Z"/>
+    <path d="M200 460 L600 460" stroke-width="8"/>
+    <path d="M200 640 L600 640" stroke-width="8"/>
+    <path d="M200 460 L200 640" stroke-dasharray="10 12"/>
+    <circle cx="215" cy="460" r="6"/>
+    <circle cx="585" cy="460" r="6"/>
+    <circle cx="215" cy="640" r="6"/>
+    <circle cx="585" cy="640" r="6"/>
+    <path d="M400 300 L400 420" stroke-width="6"/>
+    <path d="M384 404 L400 424 L416 404" stroke-width="6"/>
+  </g>
+  <g fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="54">
+    <text x="70" y="120">5</text>
+  </g>
+  <g fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-size="26">
+    <text x="70" y="900">搁板平放到位, 轻轻压一下。</text>
+    <text x="70" y="945">同一层两边高度要一致, 否则会晃。</text>
+  </g>
+  <g transform="rotate(-28 400 1010)" opacity="0.16">
+    <text x="250" y="1020" fill="#1c1a17" font-family="Helvetica, Arial, sans-serif" font-size="34">示例页面 placeholder</text>
+  </g>
+</svg>

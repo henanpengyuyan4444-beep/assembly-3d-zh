@@ -18,7 +18,7 @@ export default function Overview({ plan, current, doneUpTo, onPick, onClose }: {
       <motion.div
         className="overview"
         role="dialog"
-        aria-label="All steps"
+        aria-label="全部步骤"
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 20, opacity: 0 }}
@@ -28,7 +28,7 @@ export default function Overview({ plan, current, doneUpTo, onPick, onClose }: {
         <div className="overview-head">
           <div>
             <h2>All steps</h2>
-            <p className="sub">Like flipping through the manual. Tap any page to jump there.</p>
+            <p className="sub">像翻说明书一样。点任意一页直接跳过去。</p>
           </div>
           <button className="btn round small" onClick={onClose} aria-label="Close">
             <IClose />

@@ -24,7 +24,7 @@ export default function DonePanel({ plan, slug, finish, onReview }: { plan: Plan
   const a = s.archetype;
   const recheck = a === "table" || a === "bed" || a === "seat" || a === "sofa";
   const tall = plan.steps.some((x) => x.kind === "anchor");
-  const stat = [spent ? fmtMin(spent) : null, `${plan.steps.length} steps`, `${t.fittings} fittings`].filter(Boolean).join("  \u00b7  ");
+  const stat = [spent ? fmtMin(spent) : null, `${plan.steps.length} 步`, `${t.fittings} 件五金`].filter(Boolean).join("  \u00b7  ");
 
   return (
     <div className="pane done">
@@ -44,11 +44,11 @@ export default function DonePanel({ plan, slug, finish, onReview }: { plan: Plan
             <dd>{fmtMin(spent ?? s.minutes)}</dd>
           </div>
           <div>
-            <dt>Steps</dt>
+            <dt>步骤</dt>
             <dd>{plan.steps.length}</dd>
           </div>
           <div>
-            <dt>Fittings</dt>
+            <dt>五金</dt>
             <dd>{t.fittings}</dd>
           </div>
         </motion.dl>
@@ -60,8 +60,8 @@ export default function DonePanel({ plan, slug, finish, onReview }: { plan: Plan
             <ILibrary size={18} />
           </span>
           <span>
-            <b>Saved to your workshop</b>
-            <span>See everything you&apos;ve built, side by side and to scale.</span>
+            <b>已存到装配记录</b>
+            <span>把装过的都摊开看, 按真实比例。</span>
           </span>
           <IArrowRight size={18} />
         </Link>
@@ -69,7 +69,7 @@ export default function DonePanel({ plan, slug, finish, onReview }: { plan: Plan
         <NextUp plan={plan} />
         <Match plan={plan} slug={slug} />
 
-        <h3 className="section-title">Before you load it up</h3>
+        <h3 className="section-title">放东西之前</h3>
         <ul className="after">
           {tall && (
             <li>
@@ -82,7 +82,7 @@ export default function DonePanel({ plan, slug, finish, onReview }: { plan: Plan
             </li>
           )}
           <li>
-            <ICheck size={16} strokeWidth={2.6} /> Spare fittings are normal. Tape the bag inside, with the Allen key.
+            <ICheck size={16} strokeWidth={2.6} /> 多出来几颗五金是正常的。把袋子连同内六角扳手一起贴在箱子里。
           </li>
           <li>
             <ICheck size={16} strokeWidth={2.6} /> Flatten the box for recycling.
@@ -94,7 +94,7 @@ export default function DonePanel({ plan, slug, finish, onReview }: { plan: Plan
           <IArrowLeft />
         </button>
         <Link className="btn primary big" href="/">
-          <span>Build something else</span>
+          <span>装点别的</span>
           <IArrowRight />
         </Link>
       </div>
@@ -149,8 +149,8 @@ function ShareCard({ plan, slug, stat, spent }: { plan: Plan; slug: string; stat
         {card && <img src={card.url} alt={`${plan.spec.name}, built`} />}
       </div>
       <div className="share-text">
-        <b>Show it off</b>
-        <span>A picture of your build, ready to post.</span>
+        <b>炫耀一下</b>
+        <span>一张可以直接发的成品图。</span>
         <div className="share-actions">
           <button className="btn share-go" onClick={share}>
             {copied ? <ICheck size={17} /> : <IShare size={17} />}
@@ -218,7 +218,7 @@ function Match({ plan, slug }: { plan: Plan; slug: string }) {
   return (
     <div className="match">
       <div className="match-q">
-        <b>Did the steps match your box?</b>
+        <b>步骤和你箱子里的东西对得上吗?</b>
         {state === "ask" && (
           <div className="match-btns">
             <button className="pill-btn" onClick={() => send(true)}>
@@ -232,7 +232,7 @@ function Match({ plan, slug }: { plan: Plan; slug: string }) {
       </div>
       {state === "no" && (
         <motion.div className="match-more" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }}>
-          <span className="muted">Which step looked different?</span>
+          <span className="muted">哪一步看起来不一样?</span>
           <div className="match-steps">
             {plan.steps.map((_, i) => (
               <button key={i} className={"step-chip" + (step === i + 1 ? " on" : "")} onClick={() => setStep(step === i + 1 ? null : i + 1)} aria-pressed={step === i + 1}>

@@ -54,20 +54,20 @@ export default function StepPanel({
             <div className="voice-offer-text">
               <b>
                 {offer.again ? (
-                  "Turn voice back on?"
+                  "再打开语音?"
                 ) : (
                   <>
-                    Hands full?<span className="vo-more"> Turn on voice</span>
+                    腾不出手?<span className="vo-more"> 打开语音</span>
                   </>
                 )}
               </b>
-              <span>{offer.listen ? "Each step is read out loud. Say “next” to move on." : "Each step is read out loud. Tap done to move on."}</span>
+              <span>{offer.listen ? "每一步都会念出来, 说“下一步”就能翻页。" : "每一步都会念出来, 点“这步做完了”继续。"}</span>
             </div>
             <button className="btn voice-offer-go" onClick={offer.onStart}>
               <IMic size={17} />
-              Turn on
+              打开
             </button>
-            <button className="voice-offer-x" onClick={offer.onDismiss} aria-label="Not now">
+            <button className="voice-offer-x" onClick={offer.onDismiss} aria-label="暂时不用">
               <IClose size={16} />
             </button>
           </div>
@@ -76,10 +76,10 @@ export default function StepPanel({
           <header className="pane-head">
             <div className="step-meta">
               <span className="eyebrow">
-                Step {index + 1} of {plan.steps.length}
+                第 {index + 1} 步, 共 {plan.steps.length} 步
               </span>
-              <span className="time-pill" title="Time left for the whole build">
-                <IClock size={14} /> {left < 60 ? `${left} min left` : `${Math.round(left / 6) / 10} h left`}
+              <span className="time-pill" title="装完整件大约还要">
+                <IClock size={14} /> {left < 60 ? `还要 ${left} 分钟` : `还要 ${Math.round(left / 6) / 10} 小时`}
               </span>
             </div>
             <h2 className="step-title">{s.title}</h2>
@@ -90,7 +90,7 @@ export default function StepPanel({
             <div className="callout repeat">
               <span className="repeat-badge">{s.repeat}&times;</span>
               <span>
-                Do this for all {s.repeat} {plan.spec.archetype === "drawers" ? "drawers" : "of them"}. Counts below are for one.
+                这个动作要做 {s.repeat} 次 ({plan.spec.archetype === "drawers" ? "每个抽屉" : "每处"})。下面的数量是一次的。
               </span>
             </div>
           )}
@@ -99,15 +99,15 @@ export default function StepPanel({
             <div key={w} className={"callout warn " + w}>
               {w === "two" ? <TwoPeople size={36} /> : <WarnIcon id={w} size={36} />}
               <div>
-                <b>{w === "two" ? "Grab a second person" : w === "tip" ? "This stops it tipping over" : "You'll need to drill"}</b>
-                <span>{w === "two" ? "It's heavy or awkward for one." : w === "tip" ? "Kids climb. Always fix it to the wall." : "The screws and plugs for your wall aren't in the box."}</span>
+                <b>{w === "two" ? "叫上一个人" : w === "tip" ? "这一步防止倾倒" : "这一步要用电钻"}</b>
+                <span>{w === "two" ? "一个人不好搬, 也不好对位。" : w === "tip" ? "孩子会爬。一定固定到墙上。" : "墙上的螺丝和膨胀管不在箱子里。"}</span>
               </div>
             </div>
           ))}
 
           {hasNeeds && (
             <>
-              <h3 className="section-title">You need</h3>
+              <h3 className="section-title">这一步要用</h3>
               <ul className="needs">
                 {c.parts.map(({ type, count }) => (
                   <li key={type.id} onMouseEnter={() => onHover([type.id])} onMouseLeave={() => onHover(null)}>
@@ -123,7 +123,7 @@ export default function StepPanel({
                       <HwArt kind={type.kind} len={type.len} dia={type.dia} fit={40} />
                     </span>
                     <span className="need-name">
-                      {type.notIncluded ? (type.kind === "plug" ? "Wall plug" : "Wall screw") : type.name}
+                      {type.notIncluded ? (type.kind === "plug" ? "膨胀管" : "墙螺丝") : type.name}
                       {type.spec && <small>{type.spec}</small>}
                     </span>
                     <span className="need-qty">{count}&times;</span>
@@ -161,13 +161,13 @@ export default function StepPanel({
 
           {twoAhead >= 0 && (
             <p className="heads-up">
-              <TwoPeople size={22} /> Heads up: step {index + 2 + twoAhead} needs a second pair of hands.
+              <TwoPeople size={22} /> 提醒: 第 {index + 2 + twoAhead} 步需要两个人。
             </p>
           )}
 
           {next ? (
             <button className="upnext" onClick={onNext}>
-              <span className="upnext-label">Up next</span>
+              <span className="upnext-label">接下来</span>
               <span className="upnext-body">
                 <Thumb id={id} plan={plan} mode={{ kind: "step", index: index + 1 }} w={150} h={110} className="upnext-thumb" />
                 <span className="upnext-text">
@@ -179,10 +179,10 @@ export default function StepPanel({
             </button>
           ) : (
             <div className="upnext final">
-              <span className="upnext-label">Last step</span>
+              <span className="upnext-label">最后一步</span>
               <span className="upnext-body">
                 <span className="upnext-text">
-                  <span>After this one, it&apos;s built.</span>
+                  <span>做完这一步就装好了。</span>
                 </span>
               </span>
             </div>
@@ -191,14 +191,14 @@ export default function StepPanel({
       </div>
       <div className="pane-foot">
         <KeysTip />
-        <button className="btn round" onClick={onBack} aria-label="Previous step" title="Previous (left arrow)">
+        <button className="btn round" onClick={onBack} aria-label="上一步" title="上一步 (左方向键)">
           <IArrowLeft />
         </button>
-        <button className="btn primary big done-btn" onClick={onNext} title="Next (right arrow or space)">
+        <button className="btn primary big done-btn" onClick={onNext} title="下一步 (右方向键或空格)">
           <span className="done-ico">
             <ICheck size={18} strokeWidth={2.8} />
           </span>
-          <span className="done-label">{last ? "Done, finish up" : "Done, next step"}</span>
+          <span className="done-label">{last ? "装好了, 收尾" : "这步做完了"}</span>
           <IArrowRight />
         </button>
       </div>
@@ -233,11 +233,11 @@ function KeysTip() {
       {show && (
         <motion.div className="keys-tip" role="note" initial={{ opacity: 0, y: 8, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 4 }} transition={{ type: "spring", stiffness: 460, damping: 32 }}>
           <span>
-            <kbd aria-label="Left arrow">&larr;</kbd>
-            <kbd aria-label="Right arrow">&rarr;</kbd> to move
+            <kbd aria-label="左方向键">&larr;</kbd>
+            <kbd aria-label="右方向键">&rarr;</kbd> 切换
           </span>
           <span>
-            <kbd>R</kbd> to replay
+            <kbd>R</kbd> 重播
           </span>
           <button
             className="keys-tip-x"
@@ -245,7 +245,7 @@ function KeysTip() {
               setPref("keysTip", true);
               setShow(false);
             }}
-            aria-label="Got it, hide this tip"
+            aria-label="知道了, 不再提示"
           >
             <IClose size={14} />
           </button>

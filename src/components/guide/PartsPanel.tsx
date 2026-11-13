@@ -78,7 +78,7 @@ export default function PartsPanel({
         onFocus={() => onHover([id])}
         onBlur={() => onHover(null)}
         aria-pressed={miss}
-        aria-label={`${miss ? "Marked missing" : "Mark missing"}`}
+        aria-label={`${miss ? "已标记缺件" : "标记缺件"}`}
         initial={{ opacity: 0, x: 12 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: Math.min(0.5, 0.03 * i), duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
@@ -89,7 +89,7 @@ export default function PartsPanel({
           <AnimatePresence mode="popLayout" initial={false}>
             {miss ? (
               <motion.span key="m" className="pmiss" initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.6, opacity: 0 }}>
-                Missing
+                缺件
               </motion.span>
             ) : good ? (
               <motion.span key="o" className="pok" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 600, damping: 20 }}>
@@ -108,13 +108,13 @@ export default function PartsPanel({
     <div className="pane">
       <div className="pane-scroll">
         <header className="pane-head">
-          <p className="eyebrow">Unpack</p>
-          <h2>Check the box</h2>
-          <p className="sub">Lay everything out like the drawing. Tap anything that&apos;s missing.</p>
+          <p className="eyebrow">开箱</p>
+          <h2>清点零件</h2>
+          <p className="sub">按图把零件摆开。缺哪件, 点哪件。</p>
         </header>
 
         <h3 className="section-title">
-          Panels <span className="count-pill">{panels.reduce((s, p) => s + p.qty, 0)}</span>
+          板件 <span className="count-pill">{panels.reduce((s, p) => s + p.qty, 0)}</span>
         </h3>
         <div className="plist">
           {panels.map((p, i) =>
@@ -169,8 +169,8 @@ export default function PartsPanel({
           <div className="notbox">
             <IAlert size={18} />
             <div>
-              <b>Not in the box</b>
-              <span>Wall screws and plugs for fixing it to the wall. Pick ones that suit your wall.</span>
+              <b>不在箱子里</b>
+              <span>固定到墙上用的螺丝和膨胀管, 按你家墙的材质选。</span>
             </div>
           </div>
         )}
@@ -179,9 +179,9 @@ export default function PartsPanel({
           {nMissing > 0 && (
             <motion.div className="missbox" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}>
               <b>
-                {nMissing} {nMissing === 1 ? "thing" : "things"} missing
+                {nMissing} 件还没找到
               </b>
-              <span>You can still build the steps that don&apos;t need {nMissing === 1 ? "it" : "them"}. Spare fittings are usually free at IKEA.</span>
+              <span>不需要它的步骤可以先做。缺的螺丝钉一般能免费补到。</span>
               <button className="btn link inline" onClick={onMissingHelp}>
                 How to get spare parts
               </button>
@@ -194,7 +194,7 @@ export default function PartsPanel({
           <IArrowLeft />
         </button>
         <button className={"btn primary big" + (going ? " going" : "")} onClick={confirm}>
-          <span>{going ? "All set" : nMissing ? "Continue anyway" : "Everything's here"}</span>
+          <span>{going ? "好了" : nMissing ? "照样继续" : "零件齐了"}</span>
           <IArrowRight />
         </button>
       </div>
@@ -231,8 +231,8 @@ function Calibrate({ ppm, onClose }: { ppm: number; onClose: (v?: number) => voi
         <button className="btn round small close" onClick={() => onClose()} aria-label="Close">
           <IClose />
         </button>
-        <h3>Match a bank card</h3>
-        <p className="sub">Hold any card against the screen and slide until the outline matches its edges.</p>
+        <h3>用银行卡校准</h3>
+        <p className="sub">把任意一张银行卡贴在屏幕上, 拖动到与轮廓边对齐。</p>
         <div className="calib-stage">
           <div className="calib-card" style={{ width: w, height: h }}>
             <span />

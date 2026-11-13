@@ -9,7 +9,7 @@ import { haptic } from "./hooks";
 import { playTick } from "./sound";
 
 /**
- * Tools are an exception check: one tap says "I have everything".
+ * Tools are an exception check: one tap says "工具齐了".
  * Tapping a card flips it to show what to use instead.
  */
 export default function ToolsPanel({ plan, onNext, onBack }: { plan: Plan; onNext: (have: ToolId[]) => void; onBack: () => void }) {
@@ -51,21 +51,21 @@ export default function ToolsPanel({ plan, onNext, onBack }: { plan: Plan; onNex
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 + i * 0.04, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       >
-        <button className={"tcard-inner" + (flip ? " flipped" : "")} onClick={() => !going && setFlipped(flip ? null : id)} aria-label={`${info.name}. ${flip ? "Hide" : "Show"} a workaround`}>
+        <button className={"tcard-inner" + (flip ? " flipped" : "")} onClick={() => !going && setFlipped(flip ? null : id)} aria-label={`${info.name}. ${flip ? "收起" : "查看"}替代办法`}>
           <span className="tface front">
             <span className="tart">
               <ToolArt id={id} size={small ? 58 : 84} />
             </span>
             <span className="tname">{info.name}</span>
             <span className="thint">{t.why ?? info.hint}</span>
-            {t.included && <span className="tbadge">In the box</span>}
+            {t.included && <span className="tbadge">随箱附带</span>}
             <motion.span className="tcheck" initial={false} animate={{ scale: on ? 1 : 0, opacity: on ? 1 : 0 }} transition={{ type: "spring", stiffness: 600, damping: 22 }}>
               <ICheck size={16} strokeWidth={3} />
             </motion.span>
           </span>
           {/* small cards skip the title: the tool was just tapped, so the tip says enough */}
           <span className="tface back">
-            {!small && <span className="tback-title">No {info.name.toLowerCase()}?</span>}
+            {!small && <span className="tback-title">没有{info.name}?</span>}
             <span className="tback-text">{small ? (info.short ?? info.alt) : info.alt}</span>
             <span className="tback-flip" aria-hidden="true">
               <IRotate size={13} strokeWidth={2.4} />
@@ -80,24 +80,24 @@ export default function ToolsPanel({ plan, onNext, onBack }: { plan: Plan; onNex
     <div className="pane">
       <div className="pane-scroll">
         <header className="pane-head">
-          <p className="eyebrow">Before you start</p>
-          <h2>Grab your tools</h2>
-          <p className="sub">Missing one? Tap it for a workaround.</p>
+          <p className="eyebrow">动手之前</p>
+          <h2>先把工具备齐</h2>
+          <p className="sub">少一件? 点一下看替代办法。</p>
         </header>
         <div className="tgrid">{required.map((t, i) => card(t.id, i))}</div>
         {optional.length > 0 && (
           <>
-            <h3 className="section-title">Nice to have</h3>
+            <h3 className="section-title">有更好, 没有也行</h3>
             <div className="tgrid three">{optional.map((t, i) => card(t.id, required.length + i, true))}</div>
           </>
         )}
       </div>
       <div className="pane-foot">
-        <button className="btn round" onClick={onBack} aria-label="Back">
+        <button className="btn round" onClick={onBack} aria-label="上一步">
           <IArrowLeft />
         </button>
         <button className={"btn primary big" + (going ? " going" : "")} onClick={confirm} autoFocus>
-          <span>{going ? "Great, let's go" : "I have everything"}</span>
+          <span>{going ? "好, 开始吧" : "I have everything"}</span>
           <IArrowRight />
         </button>
       </div>
