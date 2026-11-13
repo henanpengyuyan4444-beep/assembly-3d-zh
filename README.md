@@ -58,6 +58,25 @@ NEXT_PUBLIC_MANUAL_DEMO=1 npm run dev
    - **手工录入**：照 `src/data/demo-custom.ts` 写一份 `custom`（零件给毫米尺寸与成品中心点，步骤给 title / add / fix），在 `src/lib/catalog.ts` 里挂上 slug 即可。
    - **扫描起草**：设置 `TOGETHER_API_KEY` 与 `NEXT_PUBLIC_SCAN=1`，访问 `/scan` 上传手册页，得到草稿 plan 后人工校正尺寸。
 
+## 扫描链路：BOM 先行（实验）
+
+为了避免"把多视角画法当成多块板"，扫描改成两段：先抽零件表（BOM）锁定结构，再按 BOM 约束排步骤，最后用 A1 到 A4 四条标准判定。
+
+```bash
+# 离线自检：不花 API 钱
+node --experimental-transform-types --no-warnings --import ./scripts/voice/register.mjs scripts/scan-bom-check.ts
+
+# 真实手册 4 页
+node --experimental-transform-types --no-warnings --import ./scripts/voice/register.mjs scripts/scan-bom.ts \
+  ../3d-manual/reference/pages/p06.png ../3d-manual/reference/pages/p07.png \
+  ../3d-manual/reference/pages/p08.png ../3d-manual/reference/pages/p09.png
+
+# 复查上次结果（不重新调用模型）
+node --experimental-transform-types --no-warnings --import ./scripts/voice/register.mjs scripts/scan-bom-review.ts
+```
+
+规格与实测结论见 [docs/specs/scan-bom.md](docs/specs/scan-bom.md)：**目前这一版未通过验收**，BOM 阶段读不准，扫描仍只能当草稿，产品主路径仍是 `custom` 手工录入。
+
 ## 已知限制
 
 - 上游 IKEA 目录产品的**步骤文案仍是英文**（由产品族代码生成）；中文步骤来自 `custom` 数据或中文手册扫描。这是下一步要解决的最后一截。
